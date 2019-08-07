@@ -81,21 +81,47 @@ public class Array02 {
             throw new IllegalArgumentException("addLast is  failed");
 
         //判断输入的位置是否合法
-        if(index<0 || index>size)
+        if(index<0 || index>=size)
             throw new IllegalArgumentException("add is failed,require 0<=index<=length");
         //将包括index在内的之后的数值都往后移 直接通过覆盖实现
-        for (int i = data.length - 1; i >=size; i--)
+        for (int i = size; i >=index; i--)
             data[i+1] = data[i];
 
-        data[size] = e;
+        data[index] = e;
         size++;
     }
-    //==========================查询操作==========================
-    //获取index位置的元素
-    public int get(int index){
-        if(index < 0 || index>=size)
-            throw new IllegalArgumentException("get is failed,index is illegal");
-         return data[index];
+
+    //==========================删除操作==========================
+    //从数组中删除index位置的元素，返回删除的元素
+    public int remove(int index){
+
+        //判断输入的位置是否合法
+        if(index<0 || index>=size)
+            throw new IllegalArgumentException("remove is failed,index is illegal");
+        int ret = data[index];//用来暂存index位置的数据
+        for (int i = index+1; i < size; i++) {
+            data[i-1] = data[i];
+        }
+        size--;
+        return ret;
+    }
+
+    //删除数组第一个元素
+    public int removeFirst(){
+
+        return remove(0);
+    }
+
+    //删除数组最后一个元素
+    public int removeLast(){
+        return remove(size-1);
+    }
+
+    //从数组中删除指定元素e
+    public void removeElement(int e){
+        int index = find(e);
+        if(index != -1)
+            remove(index);
     }
 
     //==========================修改操作==========================
@@ -104,6 +130,35 @@ public class Array02 {
         if(index<0 || index>=size)
             throw new IllegalArgumentException("set is failed,index is illegal");
         data[index] = e;
+    }
+
+
+    //==========================查询操作==========================
+    //获取index位置的元素
+    public int get(int index){
+        if(index < 0 || index>=size)
+            throw new IllegalArgumentException("get is failed,index is illegal");
+        return data[index];
+    }
+
+    //查找数组中是否有元素e
+    public boolean contain(int e){
+
+        for (int i = 0; i < data.length; i++) {
+            if(data[i] == e)
+                return true;
+        }
+        return false;
+    }
+
+    //查找数组中元素e所在的索引，如果不存在元素e，则返回-1
+    public int find(int e){
+
+        for (int i = 0; i < data.length; i++) {
+            if(data[i] == e)
+                return i;
+        }
+        return -1;
     }
 
     @Override
