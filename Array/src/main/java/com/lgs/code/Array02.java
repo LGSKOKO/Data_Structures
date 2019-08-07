@@ -84,7 +84,7 @@ public class Array02 {
         if(index<0 || index>size)
             throw new IllegalArgumentException("add is failed,require 0<=index<=length");
         //将包括index在内的之后的数值都往后移 直接通过覆盖实现
-        for (int i = size; i >=index; i--)
+        for (int i = size-1; i >=index; i--)
             data[i+1] = data[i];
 
         data[index] = e;
