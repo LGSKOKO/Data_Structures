@@ -81,7 +81,7 @@ public class Array02 {
             throw new IllegalArgumentException("addLast is  failed");
 
         //判断输入的位置是否合法
-        if(index<0 || index>=size)
+        if(index<0 || index>size)
             throw new IllegalArgumentException("add is failed,require 0<=index<=length");
         //将包括index在内的之后的数值都往后移 直接通过覆盖实现
         for (int i = size; i >=index; i--)
@@ -164,7 +164,7 @@ public class Array02 {
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
-        res.append(String.format("Array:size = %d,capacity = %d\n"),size,data.length);
+        res.append(String.format("Array:size = %d,capacity = %d \n",size,data.length));
         res.append("[");
         for (int i = 0; i < size; i++) {
             res.append(data[i]);
