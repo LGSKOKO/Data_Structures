@@ -101,6 +101,16 @@ public class Array04<E> {
         data[index] = e;
         size++;
     }
+    //获取最后一个元素值
+    public E getLast(){
+        //代码复用
+        return get(size-1);
+    }
+    //获取第一个元素值
+    public E getFirst(){
+        //代码复用
+        return get(0);
+    }
 
     //==========================删除操作==========================
     //从数组中删除index位置的元素，返回删除的元素
