@@ -18,7 +18,6 @@ public class LinkedList<E> {
             this.e = e;
             this.next = next;
         }
-
         public Node(E e){
             this(e,null);
         }
@@ -34,12 +33,14 @@ public class LinkedList<E> {
 
     }//end class Node
 
-    private Node head;//头指针
+//    private Node head;//头指针 1.0版
+    private Node dummyHead;//头节点 不存值
     private int size;//记录当前链表的元素个数
 
     //构造函数 初始化链表
     public LinkedList(){
-        head = null;
+//        head = null; //1.0
+        dummyHead = new Node(null,null);
         size = 0;
     }
 
@@ -53,15 +54,6 @@ public class LinkedList<E> {
         return  size ==0;
     }
 
-    //在表头添加新的元素e
-    public void addFirst(E e){
-//        Node node = new Node(e);
-//        node.next = head;
-//        head = node;
-        //这句话能够实现上面三句话一样的效果
-        head = new Node(e,head);
-        size++;
-    }//end method addFirst
 
     //在链表中间添加新的元素e
     //在链表中不是一个常用的操作，练习用
@@ -69,7 +61,8 @@ public class LinkedList<E> {
         //判断输入的index是否合法
         if(index<0 || index>size)
             throw new IllegalArgumentException("Add Failed .Illegal index");
-        if(index == 0)
+
+       /* if(index == 0)      //1.0版
             addFirst(e);
         else{
             Node prev = head;
@@ -77,7 +70,12 @@ public class LinkedList<E> {
             for (int i = 0; i < index-1; i++) {
                 prev = prev.next;
             }//end for i
+        */
 
+        Node prev = dummyHead;
+        //找到插入位置的前一个结点 这里因为加了一个不存值的头节点 所以 i<index
+        for (int i = 0; i < index; i++) {
+            prev = prev.next;
 //            Node node = new Node(e);
 //            node.next = prev.next;
 //            prev.next = node;
@@ -86,6 +84,23 @@ public class LinkedList<E> {
             size++;
         }
     }//end method add
+
+    //在表头添加新的元素e  1.0版
+//    public void addFirst(E e){
+////        Node node = new Node(e);
+////        node.next = head;
+////        head = node;
+//        //这句话能够实现上面三句话一样的效果
+//        head = new Node(e,head);
+//        size++;
+//    }//end method addFirst
+
+    //在报表头添加新的元素e
+    public void  addFirst(E e){
+        //代码复用
+        add(0,e);
+    }
+
 
     //在链表的末尾添加新的元素e
     public void addLast(E e){
