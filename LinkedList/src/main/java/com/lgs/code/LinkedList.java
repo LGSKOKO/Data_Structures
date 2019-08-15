@@ -97,15 +97,73 @@ public class LinkedList<E> {
 
     //在报表头添加新的元素e
     public void  addFirst(E e){
-        //代码复用
-        add(0,e);
+        add(0,e);//代码复用
     }
 
 
     //在链表的末尾添加新的元素e
     public void addLast(E e){
-        //代码复用
-        add(size,e);
+        add(size,e); //代码复用
+    }
+
+    //获得链表的第index(0-based）个位置的元素
+    //在链表中不是一个常用的操作，练习用
+    public E get(int index){
+        if(index<0 || index>=size)
+            throw new IllegalArgumentException("Get Failed .Illegal index");
+        Node cur = dummyHead.next;//指向首元结点
+        for (int i = 0; i < index; i++)
+            cur = cur.next;
+
+        return cur.e;
+    }
+
+    //获取第一个元素
+    public void getFirst(){
+        get(0);
+    }
+
+    //获取最后一个元素
+    public void getLast(){
+        get(size-1);
+    }
+
+    //修改链表的第index个位置的元素为e
+    //在链表中不是很常用的操作，练习用
+    public void set(int index,E e){
+        if(index<0 || index>=size)
+            throw new IllegalArgumentException("set Failed .Illegal index");
+        Node cur = dummyHead.next; //指向首元结点
+        for (int i = 0; i < index; i++)
+            cur = cur.next;//指向下一个结点
+        cur.e = e;
+    }
+
+    //查找链表中是否存在元素e
+    public boolean contains(E e){
+        Node cur = dummyHead.next;//指向首元结点
+        //循环遍历
+        while (cur != null){
+            if(cur.e.equals(e))
+                return true;
+            cur = cur.next;//指向下一个结点
+        }
+        //如果遍历完这个链表还没有返回true的话 代表没找到
+        return false;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder res = new StringBuilder();
+
+        Node cur = dummyHead.next;//指向首元结点
+        //进行循环遍历
+        while(cur != null){
+            res.append(cur+"->");
+            cur = cur.next;
+        }
+        res.append("NULL");//最后指向空指针
+        return  res.toString();
     }
 
 
