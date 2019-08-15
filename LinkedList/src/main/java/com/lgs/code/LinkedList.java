@@ -74,15 +74,15 @@ public class LinkedList<E> {
 
         Node prev = dummyHead;
         //找到插入位置的前一个结点 这里因为加了一个不存值的头节点 所以 i<index
-        for (int i = 0; i < index; i++) {
-            prev = prev.next;
-//            Node node = new Node(e);
-//            node.next = prev.next;
-//            prev.next = node;
-            //这句话起到了和上面三句话一样的效果
-            prev.next = new Node(e,prev.next);
-            size++;
-        }
+        for (int i = 0; i < index; i++)
+             prev = prev.next;
+//      Node node = new Node(e);
+//      node.next = prev.next;
+//      prev.next = node;
+
+        prev.next = new Node(e,prev.next); //这句话起到了和上面三句话一样的效果
+        size++;
+
     }//end method add
 
     //在表头添加新的元素e  1.0版
@@ -162,8 +162,35 @@ public class LinkedList<E> {
             res.append(cur+"->");
             cur = cur.next;
         }
-        res.append("NULL");//最后指向空指针
+        res.append("NULL");//这里是虚拟头结点
         return  res.toString();
+    }
+
+    //从链表中删除index位置的元素，返回删除的元素
+    public E remove(int index){
+        if(index<0 || index>=size)
+            throw new IllegalArgumentException("remove Failed .Illegal index");
+
+        Node prev = dummyHead;
+        for (int i = 0; i < index; i++)
+            prev = prev.next;
+
+        //实现删除具体逻辑
+        Node retNode = prev.next;
+        prev.next = retNode.next;
+        retNode.next = null;//释放资源 为了JVM更好回收资源
+        size--;
+
+        return retNode.e;
+    }
+
+    //删除第一个元素
+    public E removeFirst(){
+        return remove(0);
+    }
+    //删除最后一个元素
+    public E removeLast(){
+        return remove(size-1);//
     }
 
 
