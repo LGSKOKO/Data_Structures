@@ -119,13 +119,13 @@ public class LinkedList<E> {
     }
 
     //获取第一个元素
-    public void getFirst(){
-        get(0);
+    public E getFirst(){
+        return get(0);
     }
 
     //获取最后一个元素
-    public void getLast(){
-        get(size-1);
+    public E getLast(){
+        return get(size-1);
     }
 
     //修改链表的第index个位置的元素为e
