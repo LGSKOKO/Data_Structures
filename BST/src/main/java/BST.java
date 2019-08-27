@@ -37,6 +37,7 @@ public class BST<E extends Comparable<E>> {
         return size == 0;
     }
 
+    /* 1.0版
     //向二分搜索树种添加新的元素e
     public void add(E e){
         if(root == null){
@@ -45,7 +46,9 @@ public class BST<E extends Comparable<E>> {
         }else
             add(root,e);
     }
+    */
 
+    /* 1.0版
     //向以root为根的二分搜索树中添加新的元素e，递归算法
     private void add(Node node,E e){
         //先对root（根节点）进行一系列判断和相应操作
@@ -68,5 +71,29 @@ public class BST<E extends Comparable<E>> {
         else //e.compareTo(node.e)>0
             add(node.right,e);
     }
+    */
+
+    //向二分搜索树种添加新的元素e 升级版
+    public void add(E e){
+        root = add(root,e);
+    }
+
+    //递归算法 升级版
+    public Node add(Node node ,E e){
+        //判传入的节点是否为空 空则创建新的节点
+        if(node == null){
+            size++;
+            return new Node(e);
+        }
+
+        if(e.compareTo(node.e)<0)
+            node.left = add(node.left,e);
+        else if(e.compareTo(node.e)>0)
+            node.right = add(node.right,e);
+
+        return node;
+    }
+
+
 
 }//end class BST
