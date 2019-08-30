@@ -1,3 +1,5 @@
+package com.lgs.code;
+
 /**
  * @author ：李先生
  * @date ：Created in 2019/8/18 11:37
@@ -112,6 +114,44 @@ public class BST<E extends Comparable<E>> {
             return contains(node.right,e);
     }
 
+    //二分搜索树的前序遍历
+    public void preOrder(){
+        preOrder(root);
+    }
+    //二分搜索树的具体实现，递归调用
+    private void preOrder(Node node){
+        if(node == null)
+            return;
+        System.out.println(node.e);
+        preOrder(node.left);
+        preOrder(node.right);
+    }
 
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        generateBSTString(root,0,res);
+        return res.toString();
+    }
 
-}//end class BST
+    //生成以node为根节点，depth为深度的二分搜索树的描述
+    private void generateBSTString(Node node,int depth,StringBuilder res){
+        if(node == null){
+            res.append(generateDepthString(depth)+"NULL\n");
+            return;
+        }
+
+        res.append(generateDepthString(depth)+node.e+"\n");
+        generateBSTString(node.left,depth+1,res);//递归遍历其结点的左子树
+        generateBSTString(node.right,depth+1,res);//递归遍历其结点的右子树
+    }
+
+    //遍历其深度，并打印输出
+    private String generateDepthString(int depth){
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < depth; i++)
+            res.append("--");
+        return res.toString();
+    }
+
+}//end class com.lgs.code.BST
