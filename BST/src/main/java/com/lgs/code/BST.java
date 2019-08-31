@@ -1,5 +1,7 @@
 package com.lgs.code;
 
+import java.util.Stack;
+
 /**
  * @author ：李先生
  * @date ：Created in 2019/8/18 11:37
@@ -125,6 +127,22 @@ public class BST<E extends Comparable<E>> {
         System.out.println(node.e);
         preOrder(node.left);
         preOrder(node.right);
+    }
+
+    //二分搜索树的前序遍历的非递归实现方法
+    public void preOrderNR(){
+        Stack<Node> stack = new Stack<>();//调用系统提供的栈，也可使用之前我们自己实现的栈
+        stack.push(root);
+        while(!stack.isEmpty())//如果栈不为空就一直循环其中方法
+        {
+            Node cur = stack.pop();//进行出栈 拿出栈顶元素
+            System.out.println(cur.e);//打印栈顶元素的值
+            //因为是前序遍历 所以如果左右孩子都存在的话 要先入右孩子 再入左孩子
+            if(cur.right != null)//这里一定要判断其右孩子是否为空 不为空才入栈
+                stack.push(cur.right);
+            if(cur.left != null)//这里一定要判断其左孩子是否为空 不为空才入栈
+                stack.push(cur.left);
+        }
     }
 
     //二分搜索树的中序遍历
