@@ -1,5 +1,7 @@
 package com.lgs.code;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -170,6 +172,21 @@ public class BST<E extends Comparable<E>> {
         postOrder(node.right);
         System.out.println(node.e);
 
+    }
+
+    //可参考前序遍历的非递归实现方法
+    //二分搜索树的层序遍历：借用队列来实现
+    public void levelOrder(){
+        Queue<Node> q = new LinkedList<>();//这里的Queue<>只是一个接口 底层我们使用链表实现
+        q.add(root);//将根节点进行入队操作
+        while(!q.isEmpty()){
+            Node cur = q.remove();//删除队首元素，其方法返回值 是 队首元素
+            System.out.println(cur.e);//打印输出当前节点的值
+            if(cur.left != null)//如果当前节点的左孩子不为空 进行入队操作
+                q.add(cur.left);
+            if (cur.right != null)//如果当前节点的右孩子不为空 进行入队操作
+                q.add(cur.right);
+        }
     }
 
     @Override
