@@ -261,6 +261,55 @@ public class BST<E extends Comparable<E>> {
         node.right = removeMax(node.right);
         return node;
     }
+
+    //从二分搜索树中删除元素为e的节点
+    public void remove(E e){
+        root = remove(root,e);
+    }
+
+    //删除以node为根的二分搜索树中值为e的结点，递归算法
+    //返回删除节点后新的二分搜索树
+    public Node remove(Node node,E e){
+        if (node == null)
+            return null;
+        if(e.compareTo(node.e)<0){//要删除的元素e 比当前节点的e小 就进入其左子树
+            node.left = remove(node.left,e);
+            return node;
+        }
+        else if(e.compareTo(node.e)>0){//要删除的元素e 比当前节点的e大 就进入其右子树
+            node.right = remove(node.right,e);
+            return node;
+        }
+        else{// e = node.e
+
+            //待删除节点左子树为空的情况
+            if(node.left == null){
+                Node rightNode = node.right;
+                node.right = null;
+                size -- ;
+                return rightNode;
+            }
+            //待删除节点右子树为空的情况
+            if(node.right == null){
+                Node leftNode = node.left;
+                node.left = null;
+                size--;
+                return leftNode;
+            }
+
+            //待删除节点左右子树都不为空的情况
+            //找到比待删除节点大的最小节点，即待删除节点 右子树的最小节点
+            //用这个节点顶替待删除节点的位置
+            Node successor = minimum(node.right);//获取后继节点 即找到找到比待删除节点大的最小节点
+            successor.right = removeMin(node.right);//用后继节点的右子树接住 删除原先节点的右子树中的最小节点后的 树
+            successor.left = node.left;//用后继节点的左子树接住 原先节点的左子树
+
+            node.left = node.right = null;
+            return successor;
+
+        }
+
+    }//end method remove
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
